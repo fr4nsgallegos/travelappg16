@@ -12,6 +12,7 @@ class _SharedPreferencesPageState extends State<SharedPreferencesPage> {
   TextEditingController _nombreController = TextEditingController();
   int contador = 0;
   String? nombreGuardado;
+  List<String>? stringList;
 
   Future<void> guardarNombre() async {
     final prefs = await SharedPreferences.getInstance();
@@ -42,10 +43,22 @@ class _SharedPreferencesPageState extends State<SharedPreferencesPage> {
     setState(() {});
   }
 
+  Future<void> guardarLista() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList("categorias", ["Flutter", "Dart", "Firbase"]);
+  }
+
+  Future<void> cargarLista() async {
+    final prefs = await SharedPreferences.getInstance();
+    final cats = await prefs.getStringList("categorias");
+    stringList = cats;
+  }
+
   @override
   void initState() {
     cargarNombre();
     cargarContador();
+    cargarLista();
     super.initState();
   }
 
@@ -80,6 +93,7 @@ class _SharedPreferencesPageState extends State<SharedPreferencesPage> {
                 onPressed: () {
                   guardarNombre();
                   cargarNombre();
+                  guardarLista();
                 },
                 child: Text("Guardar nombre"),
               ),
@@ -101,6 +115,7 @@ class _SharedPreferencesPageState extends State<SharedPreferencesPage> {
                 "Nombre guardado: ${nombreGuardado}",
                 style: TextStyle(fontSize: 25),
               ),
+              Text(stringList.toString()),
             ],
           ),
         ),
