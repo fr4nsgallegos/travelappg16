@@ -28,9 +28,24 @@ class _SharedPreferencesPageState extends State<SharedPreferencesPage> {
     setState(() {});
   }
 
+  Future<void> cargarContador() async {
+    final prefs = await SharedPreferences.getInstance();
+    final counterAux = prefs.getInt("contador") ?? 0;
+    contador = counterAux;
+    setState(() {});
+  }
+
+  Future<void> eliminarNombre() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove("nombre");
+    nombreGuardado = "Aún no hay un nombre guardado, se eliminó";
+    setState(() {});
+  }
+
   @override
   void initState() {
     cargarNombre();
+    cargarContador();
     super.initState();
   }
 
@@ -38,8 +53,11 @@ class _SharedPreferencesPageState extends State<SharedPreferencesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           contador++;
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setInt("contador", contador);
+
           setState(() {});
         },
       ),
@@ -61,14 +79,22 @@ class _SharedPreferencesPageState extends State<SharedPreferencesPage> {
               ElevatedButton(
                 onPressed: () {
                   guardarNombre();
+                  cargarNombre();
                 },
                 child: Text("Guardar nombre"),
               ),
+
+              // ElevatedButton(
+              //   onPressed: () {
+              //     cargarNombre();
+              //   },
+              //   child: Text("Cargar nombre"),
+              // ),
               ElevatedButton(
                 onPressed: () {
-                  cargarNombre();
+                  eliminarNombre();
                 },
-                child: Text("Cargar nombre"),
+                child: Text("Eliminar Nombre"),
               ),
               SizedBox(height: 32),
               Text(
