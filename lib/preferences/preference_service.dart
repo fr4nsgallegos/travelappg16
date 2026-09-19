@@ -12,7 +12,7 @@ class PreferenceService {
 
   Future<String?> getUserName() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.getString(_keyUserName);
+    return await prefs.getString(_keyUserName);
   }
 
   Future<void> setDarkMode(bool isDark) async {
@@ -22,7 +22,7 @@ class PreferenceService {
 
   Future<bool?> getDarkMode() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.getBool(_keyIsDarkMode) ?? false;
+    return await prefs.getBool(_keyIsDarkMode) ?? false;
   }
 
   Future<void> setVisitWelcome() async {
@@ -32,6 +32,6 @@ class PreferenceService {
 
   Future<bool?> getVisitWelcomePage() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.getBool(_keyVisitWelcomePage) ?? false;
+    return await prefs.getBool(_keyVisitWelcomePage) ?? false;
   }
 }

@@ -21,6 +21,7 @@ class _InitPageState extends State<InitPage> {
     // print(visitWelcomePage);
     // visitWelcomePage = sharedPreferences.getBool("visitWelcomePage") ?? false;
     visitWelcomePage = (await preferenceService.getVisitWelcomePage() ?? false);
+    print(visitWelcomePage);
     setState(() {});
   }
 
