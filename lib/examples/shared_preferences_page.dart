@@ -92,6 +92,7 @@ class _SharedPreferencesPageState extends State<SharedPreferencesPage> {
               ElevatedButton(
                 onPressed: () {
                   guardarNombre();
+                  
                   cargarNombre();
                   guardarLista();
                 },
