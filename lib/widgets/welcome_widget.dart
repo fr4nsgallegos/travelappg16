@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travelappg16/pages/home_page.dart';
 
 class WelcomeWidget extends StatelessWidget {
   Size size;
@@ -6,6 +7,7 @@ class WelcomeWidget extends StatelessWidget {
   String description;
   String asset;
   Color bgColor;
+  bool showButton;
 
   WelcomeWidget({
     super.key,
@@ -14,6 +16,7 @@ class WelcomeWidget extends StatelessWidget {
     required this.description,
     required this.asset,
     required this.bgColor,
+    this.showButton = false,
   });
 
   @override
@@ -43,6 +46,20 @@ class WelcomeWidget extends StatelessWidget {
             description,
             style: TextStyle(fontSize: 15, color: Colors.white),
           ),
+          showButton
+              ? Padding(
+                  padding: EdgeInsetsGeometry.only(top: 40),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    },
+                    child: Text("Vamos!"),
+                  ),
+                )
+              : Container(),
         ],
       ),
     );
