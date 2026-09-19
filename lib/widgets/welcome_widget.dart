@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelappg16/pages/home_page.dart';
+import 'package:travelappg16/preferences/preference_service.dart';
 
 class WelcomeWidget extends StatelessWidget {
   Size size;
@@ -20,9 +21,13 @@ class WelcomeWidget extends StatelessWidget {
     this.showButton = false,
   });
 
+  PreferenceService preferenceService = PreferenceService();
+
   Future<void> setVisitWelcomePage() async {
-    final sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setBool("visitWelcomePage", true);
+    // final sharedPreferences = await SharedPreferences.getInstance();
+    // await sharedPreferences.setBool("visitWelcomePage", true);
+
+    preferenceService.setVisitWelcome();
   }
 
   @override
