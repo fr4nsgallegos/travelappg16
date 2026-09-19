@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelappg16/pages/home_page.dart';
 
 class WelcomeWidget extends StatelessWidget {
@@ -18,6 +19,11 @@ class WelcomeWidget extends StatelessWidget {
     required this.bgColor,
     this.showButton = false,
   });
+
+  Future<void> setVisitWelcomePage() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setBool("visitWelcomePage", true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +57,7 @@ class WelcomeWidget extends StatelessWidget {
                   padding: EdgeInsetsGeometry.only(top: 40),
                   child: ElevatedButton(
                     onPressed: () {
+                      setVisitWelcomePage();
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => HomePage()),
